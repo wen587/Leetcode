@@ -19,24 +19,18 @@ public class Solution {
 
 //same
 public class Solution {
-    public void merge(int A[], int m, int B[], int n) {
-        int idx = m + n - 1;
-        int i = m - 1;
-        int j = n - 1;
-
-        while (i >= 0 && j >= 0) {
-            if (A[i] >= B[j]) {
-                A[idx--] = A[i--];
-            } else {
-                A[idx--] = B[j--];
-            }
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int cur = m + n - 1;
+        m--;
+        n--;
+        while(m >= 0 && n >= 0) {
+            nums1[cur--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
         }
-
-        if (i == -1) {
-            while (j >= 0) {
-                A[j] = B[j];
-                j--;
+        if(m < 0) {
+            while(n >= 0) {
+                nums1[cur--] = nums2[n--];
             }
         }
     }
+}
 }

@@ -37,18 +37,18 @@ public class Solution {
 }
 
 //iterative   如果是空root怎么计算呢
+
 public class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer> res = new ArrayList<Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-        
         while(!stack.isEmpty()) {
             TreeNode temp = stack.pop();
-            if(temp!=null) {
+            if(temp != null) {
                 res.add(temp.val);
-                if(temp.right!=null) stack.push(temp.right);
-                if(temp.left!=null) stack.push(temp.left);
+                stack.push(temp.right);
+                stack.push(temp.left);
             }
         }
         return res;
@@ -57,14 +57,13 @@ public class Solution {
 }
 
 //iterative2
-public ArrayList<Integer> preorderTraversal_2(TreeNode root) {
+public ArrayList<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
         while(!stack.isEmpty() || root != null) {
             if(root != null) {
                 res.add(root.val);
-                if(root.right != null)
-                    stack.push(root.right);
+                stack.push(root.right);
                 root = root.left;
             }
             else

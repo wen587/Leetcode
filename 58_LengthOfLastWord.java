@@ -9,6 +9,27 @@
  * return 5.
  */
 
+//
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        int j = s.length() - 1;
+        while(j > 0) {
+            if(s.charAt(j) != ' ')break;
+            j--;
+        }
+        int space = -1;
+        int i = 0;
+        while( i<=j) {
+            if(s.charAt(i) == ' ') {
+                space = i;
+            }
+            i++;
+        }
+        return i - 1 - space;
+    }
+}
+
+//
 
 public class Solution {
     public int lengthOfLastWord(String s) {

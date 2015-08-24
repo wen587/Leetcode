@@ -33,47 +33,21 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//check
 public class Solution {
     public void flatten(TreeNode root) {
-        if(root != null)
-        traverse(root);
-    }
-    private TreeNode traverse(TreeNode root) {
-        TreeNode left = root.left;
+        if(root == null) return;
+        flatten(root.left);
+        flatten(root.right);
         TreeNode right = root.right;
-        TreeNode tail = root;
-        root.left = null;
-        root.right = null;
-        if(left != null) {
-            root.right = left;
-            tail = traverse(left);
+        if(root.left != null) {
+            root.right = root.left;
+            root.left = null;
+            while(root.right != null) root = root.right;
+            root.right = right;
         }
-        if(right != null) {
-            tail.right = right;
-            tail = traverse(root.right);
-        }
-        tail.left = null;
-        tail.right = null;
-        return tail;
     }
 }
 
-//没明白
-public class FlattenBinaryTreeToLinkedList {
-    public void flatten(TreeNode root) {
-        if(root == null)
-            return ;
-        flatten(root.left);
-        flatten(root.right);
-        TreeNode R = root.right;
-        root.right = root.left;
-        root.left = null;
-        while(root.right != null) {
-            root = root.right;
-        }
-        root.right = R;
-    } 
 
 /***************************** updated 2013/12/29 ****************************/
 

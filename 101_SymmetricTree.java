@@ -27,15 +27,42 @@
 //recursive
 public class Solution {
     public boolean isSymmetric(TreeNode root) {
-        return root == null || resHelper(root.left, root.right);
+        return root == null || helper(root.left, root.right);
     }
-    
-    private boolean resHelper(TreeNode tree1, TreeNode tree2) {
-        return (tree1 ==null && tree2 == null || tree1 != null && tree2 != null && tree1.val == tree2.val 
-        && resHelper(tree1.left, tree2.right) && resHelper(tree1.right, tree2.left));
+    public boolean helper(TreeNode left, TreeNode right) {
+        if(left == null || right == null) {
+            return left == right;
+        }
+        if(left.val != right.val) return false;
+        return helper(left.left, right.right) && helper(left.right, right.left);
     }
 }
-
 //Iterative
-//https://oj.leetcode.com/discuss/22288/two-simple-accepted-java-solutions-recursion-and-iteration
-//https://github.com/mitcc/AlgoSolutions/blob/master/leetcode/SymmetricTree.java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        if(root == null) return true;
+        stack.push(root.left);
+        stack.push(root.right);
+        while(!stack.isEmpty()) {
+            TreeNode n1 = stack.pop();
+            TreeNode n2 = stack.pop();
+            if(n1 == null && n2 == null) continue;
+            if(n1 == null || n2 == null || n1.val != n2.val) return false;
+            stack.push(n1.left);
+            stack.push(n2.right);
+            stack.push(n1.right);
+            stack.push(n2.left);
+        }
+        return true;
+    }
+}

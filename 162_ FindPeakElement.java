@@ -11,48 +11,25 @@
  * Note:
  * Your solution should be in logarithmic complexity.
  */
-//O(n)
-public class Solution {
-    public int findPeakElement(int[] num) {
-        if(num.length == 1) return 0;
-        int[] copy = new int[num.length + 2];
-        
-        for(int i=1; i<num.length + 1; i++) {
-            copy[i] = num[i-1];
-        }
-        copy[0] = Integer.MIN_VALUE;
-        copy[num.length + 1] = Integer.MIN_VALUE;
-        int i;
-        for(i=1; i<num.length + 2; i++) {
-            if(copy[i]>copy[i-1] && copy[i]>copy[i+1]) break;
-        }
-        return i-1;
-    }
-}
 
-//another O(n)
-public class Solution {
-     public int findPeakElement(int[] num) {
-        for (int i = 1; i < num.length - 1; i++) {
-            if (num[i] > num[i - 1] && num[i] > num[i + 1])
-                return i;
-        }
-        return (num.length == 1 || num[0] > num[1]) ? 0 : num.length - 1;
-    }   
-}
+
 
 
 //O(logn)
 
-public int findPeakElement(int[] num) {
-        int start = 0;
-        int end = num.length - 1;
-        while (start < end) {
-            int mid = start + (end - start) / 2;
-            if (num[mid] < num[mid + 1])
-                start = mid + 1;
-            else
-                end = mid;
+public class Solution {
+    public int findPeakElement(int[] nums) {
+        int l = 0; 
+        int r = nums.length - 1;
+        int res = 0;
+        while( l < r) {
+            int mid = (l + r) / 2;
+            if(nums[mid] > nums[mid + 1]) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
         }
-        return start;
+        return l;
+    }
 }

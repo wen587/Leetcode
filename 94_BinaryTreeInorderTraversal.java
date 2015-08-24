@@ -42,20 +42,17 @@ public class Solution {
 //iterative
 public class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        ArrayList<Integer> res = new ArrayList<Integer>();
-        TreeNode node = root;
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        
-        
-        while(!stack.isEmpty() || node!=null) {
-            if(node!=null) {
-                stack.push(node);
-                node = node.left;
-            } else{
-                node = stack.pop();
-                if(node == null) return res;
-                res.add(node.val);
-                node = node.right;
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+
+        while(!stack.isEmpty() || root != null) {
+            if(root != null) {
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                res.add(root.val);
+                root = root.right;
             }
         }
         return res;

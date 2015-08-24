@@ -27,6 +27,50 @@
  *     TreeLinkNode(int x) { val = x; }
  * }
  */
+
+
+
+//iterative
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        helper(root);
+    }
+    public void helper(TreeLinkNode root) {
+        if(root == null) return;
+        TreeLinkNode nextLevel;
+        TreeLinkNode pre;
+        TreeLinkNode parent = root;
+        while(parent != null) {
+            pre = null;
+            nextLevel = null;
+            while(parent != null) {
+                if(nextLevel == null) {
+                    nextLevel = parent.left == null ? parent.right : parent.left;
+                }
+                if(parent.left != null) {
+                    if(pre != null) {
+                        pre.next = parent.left;
+                        pre = pre.next;
+                    } else {
+                        pre = parent.left;
+                    }
+                }
+                if(parent.right != null) {
+                    if(pre != null) {
+                        pre.next = parent.right;
+                        pre = pre.next;
+                    } else {
+                        pre = parent.right;
+                    }
+                }
+                parent = parent.next;
+            }
+            parent = nextLevel;
+        }
+        
+    }
+}
+//
 public class Solution {
     public void connect(TreeLinkNode root) {
         if(root == null) return;
@@ -52,27 +96,5 @@ public class Solution {
         }
     }
 }
-
-//check 
-public void connect(TreeLinkNode root) {
-        if (root == null)
-            return;
-        ArrayList<TreeLinkNode> cur = new ArrayList<TreeLinkNode>();
-        cur.add(root);
-        while (cur.size() != 0) {
-            ArrayList<TreeLinkNode> next = new ArrayList<TreeLinkNode>();
-            for (int i = 0; i < cur.size(); i++) {
-                TreeLinkNode node = cur.get(i);
-                if (node.left != null)
-                    next.add(node.left);
-                if (node.right != null)
-                    next.add(node.right);
-                if (i != cur.size() - 1) 
-                    node.next = cur.get(i + 1);
-            }
-            cur = next;
-        }
-    }
-
 
 

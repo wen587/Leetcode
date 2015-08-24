@@ -12,41 +12,20 @@
  * There is a more generic way of solving this problem.
  */
 
-//Mine
-public class Solution {
-    public boolean isPalindrome(int x) {
-        ArrayList<Integer> test = new ArrayList<Integer>();
-        if(x < 0) return false;
-        while(x != 0) {
-            int remainder = x % 10;
-            test.add(remainder);
-            x = x / 10;
-        }
-        int start = 0;
-        int end = test.size() - 1;
-        while (start <= end) {
-            if(test.get(start) == test.get(end)) {
-                start++;
-                end--;
-            }
-            else return false;
-        }
-        return true;
-    }
-}
 
 //Smart
- public boolean isPalindrome(int x) {
-        if (x < 0)
-            return false;
-        int xCopy = x;
-        int reverse = 0;
-        while (xCopy != 0) {
-            reverse = 10 * reverse + xCopy % 10;
-            xCopy /= 10;
+public class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0) return false;
+        int y = x;
+        int res = 0;
+        while(y != 0) {
+            res = res * 10 + y % 10;
+            y /= 10;
         }
-        return reverse == x;
+        return x == res;
     }
+}
 //another smart
     public boolean isPalindrome(int x) {
         String s = x + "";

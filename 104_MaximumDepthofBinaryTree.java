@@ -12,6 +12,19 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//
+public class Solution {
+    public int maxDepth(TreeNode root) {
+        return helper(root, 0);
+    }
+    public int helper(TreeNode root, int res) {
+        if(root == null) return res;
+        // if(root.left == null) return 1 + helper(root.right, res);
+        // if(root.right == null) return 1 + helper(root.left, res);
+        return Math.max(helper(root.left, res), helper(root.right, res)) + 1;
+    }
+}
+//
 
  public class Solution {
     public int maxDepth(TreeNode root) {

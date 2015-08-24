@@ -36,7 +36,24 @@ public class Solution {
         
     }
 }
-
+//modified preorder 666
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack  = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode temp = stack.pop();
+            if(temp != null) {
+                res.add(temp.val);
+                stack.push(temp.left);
+                stack.push(temp.right);
+            }
+        }
+        Collections.reverse(res);
+        return res;
+    }
+}
 //iterative 思路厉害
 public class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
@@ -66,22 +83,3 @@ public class Solution {
         return res;
     }
 }
-//Tricky using reverse, modify preoder to root-right-left
-public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
-        if (root == null)
-            return result;
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            TreeNode cur = stack.pop();
-            result.add(cur.val);
-            if (cur.left != null)
-                stack.push(cur.left);
-            if (cur.right != null)
-                stack.push(cur.right);
-        }
-        Collections.reverse(result);
-        return result;
-    }
-

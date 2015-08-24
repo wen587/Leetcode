@@ -6,53 +6,44 @@
  * the contiguous subarray [4,−1,2,1] has the largest sum = 6.
  */ 
 
-
+//divide and conquer 66666
 public class Solution {
-    public int maxSubArray(int[] A) {
-        if(A == null) return 0;
-        int sum = 0;
-        int max = Integer.MIN_VALUE;
-        for(int i=0; i<A.length; i++){
-            sum += A[i];
-            if(max < sum) max = sum;
-            if(sum < 0) sum = 0;
+    public int maxSubArray(int[] nums) {
+        return helper(nums, 0, nums.length - 1);
+    }
+    public int helper(int[] nums, int left, int right) {
+        if(left == right) return nums[left];
+        int mid = (left + right) / 2;
+        int l = helper(nums, left, mid);
+        int r = helper(nums, mid + 1, right);
+        int leftMax = nums[mid];
+        int rightMax = nums[mid + 1];
+        int temp = 0;
+        for(int i=mid; i>=left; i--) {
+            temp += nums[i];
+            leftMax = Math.max(leftMax, temp);
         }
-        return max;
+        temp = 0;
+        for(int i=mid + 1; i <= right; i++) {
+            temp += nums[i];
+            rightMax = Math.max(rightMax, temp);
+        }
+        return Math.max(Math.max(l, r), leftMax + rightMax);
     }
 }
 
-//DP Solution
-public class Solution{  
-    public int maxSubArray(int[] A) {
-            int n = A.length;
-            int[] dp = new int[n];//dp[i] means the maximum subarray ending with A[i];
-            dp[0] = A[0];
-            int max = dp[0];
-    
-            for(int i = 1; i < n; i++){
-                dp[i] = A[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
-                max = Math.max(max, dp[i]);
-            }
-    
-            return max;
-    } 
+
+//my dp
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        int res = dp[0];
+        for(int i=1; i<dp.length; i++) {
+            dp[i] = dp[i - 1] > 0 ? nums[i] + dp[i - 1] : nums[i];
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
 }
 
-//DP2
-public int maxSubArray(int[] A) {
-        if(A.length == 0){
-            return 0;
-        }
-
-        int [] dp = new int[A.length]; 
-
-        int max_sum = A[0];
-        dp[0] = A[0];
-
-        for(int i=1; i<A.length; i++){
-            dp[i] = Math.max(dp[i-1] + A[i], A[i]);
-            max_sum = Math.max(dp[i], max_sum);
-        }
-
-        return max_sum;  
-    }

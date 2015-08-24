@@ -21,32 +21,51 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-
-//开始往下 不是从下往上
+//dfs  recursive
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+        return helper(root, 0);
+    }
+    public int helper(TreeNode root, int path) {
+        if(root == null) return 0;
+        path = path * 10 + root.val;
+        if(root.left == null && root.right == null) return path;
+        
+        int res1 = helper(root.left, path);
+        int res2 = helper(root.right, path);
+        return res1 + res2;
+    }
+}
+//iterative
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 public class Solution {
     public int sumNumbers(TreeNode root) {
         if(root == null) return 0;
-        if(root.left == null && root.right == null) return root.val;
-        if(root.left != null) {
-            root.left.val += root.val * 10;
+        int res = 0;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            if(cur.right != null) {
+                cur.right.val = cur.val * 10 + cur.right.val;
+                stack.push(cur.right);
+            }
+            
+            if(cur.left != null) {
+                cur.left.val = cur.val * 10 + cur.left.val;
+                stack.push(cur.left);
+            }
+            
+            if(cur.left == null && cur.right == null) res += cur.val;
         }
-        if(root.right != null) {
-            root.right.val += root.val * 10;
-        }
-        return sumNumbers(root.left) + sumNumbers(root.right);
+        return res;
     }
 }
-
-//dfs
-public int sumNumbers(TreeNode root) {
-        return dfs(root, 0);
-    }
-
-    public int dfs(TreeNode root, int sum) {
-        if (root == null)
-            return 0;
-        if (root.left == null && root.right == null)
-            return 10 * sum + root.val;
-        return dfs(root.left, 10 * sum + root.val) + 
-            dfs(root.right, 10 * sum + root.val);
-    }

@@ -11,6 +11,26 @@
  *     28 -> AB 
  * 
  */
+
+//recursive
+return n == 0 ? "" : convertToTitle(--n / 26) + (char)('A' + (n % 26));
+
+//iterative
+
+public class Solution {
+    public String convertToTitle(int n) {
+        String res = "";
+        
+        while(n > 0) {
+            n--;
+            res = (char) (n % 26 + 'A') + res;
+            n /= 26;
+        }
+        // res = (char) (n % 26 + 'A') + res;
+        return res;
+    }
+}
+//
 public class Solution {
     public String convertToTitle(int n) {
         String s = "";

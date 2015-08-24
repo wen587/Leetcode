@@ -14,6 +14,28 @@
  * option? You would then have to re-design the function (ie, add an extra 
  * parameter). 
  */
+//
+public class Solution {
+    public int reverse(int x) {
+        boolean negative = false;
+        int res = 0;
+        if(x < 0)  {
+            if(x == Integer.MIN_VALUE) return 0;
+            x = -x;
+            negative = true;
+        }
+        while(x / 10 != 0) {
+            res = 10 * res + x % 10;
+            if(res > Integer.MAX_VALUE / 10 
+            // || (res == Integer.MAX_VALUE / 10 && x % 10 > 7)
+            ) return 0;
+            x /= 10;
+        }
+        res = 10 * res + x;
+        return negative ? -res : res;
+    }
+}
+//
 
 public class Solution {
     public int reverse(int x) {

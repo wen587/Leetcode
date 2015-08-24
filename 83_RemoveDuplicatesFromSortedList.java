@@ -16,17 +16,30 @@
  *     }
  * }
  */
-//不明白 不是对head没有改变吗 为什么返回head
+//Iterative 
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        if(head == null) return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
         ListNode cur = head;
-        ListNode next = head.next;
-        while(next!=null){
-            if(cur.val==next.val) cur.next = next.next;
-            else cur = cur.next;
-            next = next.next;
+        while(cur != null && cur.next != null) {
+            if(cur.val == cur.next.val) {
+                pre.next = cur.next;
+            } else {
+                pre = cur;
+            }
+            cur = cur.next;
         }
-        return head;
+        return dummy.next;
+    }
+}
+//recursive
+
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null)return head;
+        head.next = deleteDuplicates(head.next);
+        return head.val == head.next.val ? head.next : head;
     }
 }

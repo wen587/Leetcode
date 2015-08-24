@@ -36,7 +36,23 @@
  *     TreeLinkNode(int x) { val = x; }
  * }
  */
-
+//iterative
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        // if(root == null) return;
+        // root.next = null;
+        while(root != null) {
+            TreeLinkNode p = root;
+            while(p != null && p.left != null) {
+                p.left.next = p.right;
+                p.right.next = p.next == null ? null : p.next.left;
+                p = p.next;
+            }
+            root = root.left;
+        }
+    }
+}
+//recursive
 public class Solution {
     public void connect(TreeLinkNode root) {
         if(root==null || root.left==null) return;
@@ -48,42 +64,3 @@ public class Solution {
 }
 
 
-
-public class Solution {
-    public void connect(TreeLinkNode root) {
-        traverse (root, null);
-    }
-     
-    public void traverse (TreeLinkNode node, TreeLinkNode next) {
-        if(null==node)
-            return;
-         
-        node.next = next;
-         
-        // left child
-        traverse (node.left, node.right);
-         
-        // right child
-        if (null==node.next)
-            traverse (node.right, null);
-        else
-            traverse (node.right, node.next.left);
-    }
-}
-
-//need to see again
-public class Solution {
-    public void connect(TreeLinkNode root) {
-        while (root != null) {
-            TreeLinkNode cur = root;
-            while (cur != null) {
-                if (cur.left != null) 
-                    cur.left.next = cur.right;
-                if (cur.right != null && cur.next != null)
-                    cur.right.next = cur.next.left;
-                cur = cur.next;
-            }
-            root = root.left;
-        }
-    }
-}

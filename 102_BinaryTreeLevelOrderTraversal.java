@@ -23,6 +23,48 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ //dfs
+ public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        helper(res, root, 0);
+        return res;
+    }
+    public void helper(List<List<Integer>> res, TreeNode root, int level) {
+        if(root == null) return;
+        if(res.size() <= level) {
+            res.add(new ArrayList<Integer>());
+        }
+        List<Integer> list = res.get(level);
+        list.add(root.val);
+        helper(res, root.left, level + 1);
+        helper(res, root.right, level + 1);
+    }
+}
+//bfs using queue
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int size = queue.size();
+            for(int i=0; i<size; i++) {
+                TreeNode temp = queue.poll();
+                list.add(temp.val);
+                if(temp.left != null) queue.add(temp.left);
+                if(temp.right != null) queue.add(temp.right);
+            }
+            res.add(list);
+        }
+        return res;
+    }
+}
+
+
+//bfs using list
 
  public class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -44,22 +86,6 @@
     }
 }
 
-//DFS need check
-public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        levelHelper(res, root, 0);
-        return res;
-    }
-
-    public void levelHelper(List<List<Integer>> res, TreeNode root, int height) {
-        if (root == null) return;
-        if (height >= res.size()) {
-            res.add(new LinkedList<Integer>());
-        }
-        res.get(height).add(root.val);
-        levelHelper(res, root.left, height+1);
-        levelHelper(res, root.right, height+1);
-    }
 
 //Queue
 
